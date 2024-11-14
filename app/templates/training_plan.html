@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Training Plan</h2>
+    <p class="text-center">Track your progress and stay on course with your running goals.</p>
+    
+    <table class="table table-striped mt-4">
+        <thead>
+            <tr>
+                <th>Week</th>
+                <th>Long Run</th>
+                <th>Speed Workout</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for week in training_plan %}
+            <tr>
+                <td>{{ week.week }}</td>
+                <td>{{ week.long_run }}</td>
+                <td>{{ week.speed_workout }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

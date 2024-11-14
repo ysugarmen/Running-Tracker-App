@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Add a Run</h1>
+<form method="POST" action="{{ url_for('main.add_run') }}">
+  {{form.hidden_tag()}}
+  <div class="form-group">
+    {{form.date.label}}{{form.date(class_="form-control")}}
+  </div>
+  <div class="form-group">
+    {{form.run_type.label}}{{form.run_type(class_="form-control")}}
+  </div>
+  <div id="long_run_fields" style="display:none;">
+    <div class="form-group">
+        {{form.distance.label}}{{form.distance(class_="form-control")}}
+    </div>
+    <div class="form-group">
+        {{form.duration.label}}{{form.duration(class_="form-control")}}
+    </div>
+    <div class="form-group">
+        {{form.heart_rate.label}}{{form.heart_rate(class_="form-control")}}
+    </div>
+  </div>
+  <div id="speed_run_fields" style="display:none;">
+    <div class="form-group">
+        {{form.run_subtype.label}}{{form.subtype(class_="form-control")}}
+    </div>
+    <div id="tempo_fields" style="display:none;">
+        <div class="form-group">
+            {{form.warmup_distance.label}}{{form.warmup_distance(class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.main_part_distance.label}}{{form.main_part_distance(class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.main_part_pace.label}}{{form.main_part_pace(class_="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.heart_rate.label}}{{form.heart_rate(class_="form-control")}}
+        </div>
+    </div>
+    <div id="intervals_fields" style="display: none;">
+        <div class="form-group">
+            {{ form.run_structure.label }} {{ form.run_structure(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.interval_details.label }} {{ form.interval_details(class="form-control") }}
+        </div>
+    </div>
+  </div>
+  {{form.submit(class_="btn btn-primary")}}
+  </form>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const workoutTypeField = document.getElementById('workout_type');
+        const workoutSubtypeField = document.getElementById('workout_subtype');
+        const longRunFields = document.getElementById('long_run_fields');
+        const speedRunFields = document.getElementById('speed_run_fields');
+        const tempoFields = document.getElementById('tempo_fields');
+        const intervalsFields = document.getElementById('intervals_fields');
+    
+        function toggleFields() {
+            const type = workoutTypeField.value;
+            longRunFields.style.display = type === 'long_run' ? 'block' : 'none';
+            speedRunFields.style.display = type === 'speed_run' ? 'block' : 'none';
+            const subtype = workoutSubtypeField.value;
+            tempoFields.style.display = subtype === 'tempo' ? 'block' : 'none';
+            intervalsFields.style.display = subtype === 'intervals' ? 'block' : 'none';
+        }
+    
+        workoutTypeField.addEventListener('change', toggleFields);
+        workoutSubtypeField.addEventListener('change', toggleFields);
+        toggleFields();
+    });
+    </script>
+    {% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Your Profile</h2>
+    <p class="text-center">Welcome, {{ current_user.username }}!</p>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">User Information</h5>
+            <p><strong>Email:</strong> {{ current_user.email }}</p>
+            {% if current_user.profile_picture %}
+            <p><strong>Profile Picture:</strong></p>
+            <img src="{{ url_for('static', filename=current_user.profile_picture) }}" alt="Profile Picture" class="img-thumbnail" width="150">
+            {% else %}
+            <p>No profile picture uploaded.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
